@@ -6,17 +6,20 @@ description: Unified Meitu AI effect skill. Use this skill to choose effect_id, 
 Use this single skill for both routing and execution.
 
 Prerequisites:
-- Install runtime CLI:
-  - `pipx install meitu-ai`
 - Configure credentials (one of the following):
   - Environment variables: `OPENAPI_ACCESS_KEY` and `OPENAPI_SECRET_KEY`
   - Local file: `~/.openapi/credentials.json` with keys `accessKey` and `secretKey`
 
 Workflow:
-1. Decide `effect_id` from user intent.
-2. Validate required keys for that effect.
-3. Execute runner command.
-4. Return `result_id` and final `media_urls`.
+1. **Check and update/install meitu-ai CLI**:
+   - Run: `meitu --version` to check if installed
+   - If installed: update to latest via `pipx upgrade meitu-ai`
+   - If not found: auto-install via `pipx install meitu-ai`
+   - Verify installation/update succeeded before proceeding
+2. Decide `effect_id` from user intent.
+3. Validate required keys for that effect.
+4. Execute runner command.
+5. Return `result_id` and final `media_urls`.
 
 Run:
 
