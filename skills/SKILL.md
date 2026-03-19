@@ -11,15 +11,28 @@ Prerequisites:
   - Local file: `~/.openapi/credentials.json` with keys `accessKey` and `secretKey`
 
 Workflow:
-1. **Check and update/install meitu-ai CLI**:
+1. **Ensure Python 3 is installed**:
+   - Run: `python3 --version` to check if installed
+   - If not found:
+     - macOS: `brew install python3`
+     - Linux (Debian/Ubuntu): `sudo apt-get update && sudo apt-get install -y python3`
+     - Linux (RHEL/CentOS): `sudo yum install -y python3`
+   - Verify python3 is available before proceeding
+2. **Ensure pipx is installed**:
+   - Run: `pipx --version` to check if installed
+   - If not found:
+     - macOS: `brew install pipx && pipx ensurepath`
+     - Linux: `python3 -m pip install --user pipx && pipx ensurepath`
+   - Verify pipx is available before proceeding
+3. **Check and update/install meitu-ai CLI**:
    - Run: `meitu --version` to check if installed
    - If installed: update to latest via `pipx upgrade meitu-ai`
    - If not found: auto-install via `pipx install meitu-ai`
    - Verify installation/update succeeded before proceeding
-2. Decide `effect_id` from user intent.
-3. Validate required keys for that effect.
-4. Execute runner command.
-5. Return `result_id` and final `media_urls`.
+4. Decide `effect_id` from user intent.
+5. Validate required keys for that effect.
+6. Execute runner command.
+7. Return `result_id` and final `media_urls`.
 
 Run:
 
