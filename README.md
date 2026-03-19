@@ -3,7 +3,7 @@
 Command-based skill pack for OpenClaw, powered by `meitu-ai`.
 
 This pack provides:
-- one skill per capability (8 skills)
+- one skill per capability (9 skills)
 - a shared runner script: `skills/_shared/run_command.py`
 
 Capabilities:
@@ -15,6 +15,7 @@ Capabilities:
 - `meitu-image-to-video` -> `image-to-video` (图生视频)
 - `meitu-image-face-swap` -> `image-face-swap` (换头像)
 - `meitu-image-cutout` -> `image-cutout` (抠图)
+- `article-to-cover` -> `image-generate` (文章转海报/封面设计)
 
 ## Quick Start
 
@@ -69,6 +70,9 @@ meitu-ai-skillpack/
       SKILL.md
     meitu-image-cutout/
       SKILL.md
+    article-to-cover/
+      SKILL.md
+      references/
 ```
 
 See `docs/` for OpenClaw setup, extension strategy, and maintenance rules.

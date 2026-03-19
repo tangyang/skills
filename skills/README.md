@@ -9,6 +9,7 @@ Capability skills:
 - `meitu-image-to-video` (图生视频)
 - `meitu-image-face-swap` (换头像)
 - `meitu-image-cutout` (抠图)
+- `article-to-cover` (文章转海报/封面设计)
 
 Shared runtime:
 - `_shared/run_command.py`
