@@ -1,6 +1,6 @@
 ---
 name: meitu-ai
-description: Unified Meitu AI effect skill. Use this skill to choose effect_id, validate required inputs, and execute effect calls through a config-driven Python runner. Return result id and final media URL.
+description: Unified Meitu AI command skill. Use this skill to choose built-in command, validate user inputs, and execute through the Python runner. Return task id and final media URL.
 ---
 
 Use this single skill for both routing and execution.
@@ -29,31 +29,44 @@ Workflow:
    - If installed: update to latest via `pipx upgrade meitu-ai`
    - If not found: auto-install via `pipx install meitu-ai`
    - Verify installation/update succeeded before proceeding
-4. Decide `effect_id` from user intent.
-5. Validate required keys for that effect.
+4. Decide `command` from user intent.
+5. Validate required input keys for that command.
 6. Execute runner command.
-7. Return `result_id` and final `media_urls`.
+7. Return `task_id` and final `media_urls`.
 
 Run:
 
 ```bash
-python3 scripts/run_effect.py --effect-id "<effect_id>" --input-json '<json object>'
+python3 scripts/run_command.py --command "<command>" --input-json '<json object>'
 ```
 
-Input contract:
-- `effect_id`: required
-- `input-json`: required object
-
-Validated effects:
-- `488178`
-  - required: `image_url`
-- `488176`
-  - required: `image_url`, `prompt`
-  - optional: `size` (default `2K`), `output_format` (default `jpeg`), `ratio` (default `auto`)
+Supported commands and input keys:
+- `video-motion-transfer`
+  - required: `image_url`, `video_url`, `prompt`
+- `image-edit`
+  - required: `image`, `prompt`
+  - optional: `size`, `output_format`, `ratio`
+- `image-generate`
+  - required: `prompt`
+  - optional: `image`, `size`
+- `image-upscale`
+  - required: `image`
+  - optional: `model_type`
+- `image-virtual-tryon`
+  - required: `clothes_image_url`, `person_image_url`
+  - optional: `replace`, `need_sd`
+- `image-to-video`
+  - required: `image`, `prompt`
+  - optional: `video_duration`, `ratio`
+- `image-face-swap`
+  - required: `head_image_url`, `sence_image_url`, `prompt`
+- `image-cutout`
+  - required: `image`
+  - optional: `model_type`
 
 Output fields:
 - `ok`
-- `effect_id`
-- `result_id`
+- `command`
+- `task_id`
 - `media_urls`
 - `result`
