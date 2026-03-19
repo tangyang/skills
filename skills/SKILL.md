@@ -11,13 +11,13 @@ Prerequisites:
   - Local file: `~/.openapi/credentials.json` with keys `accessKey` and `secretKey`
 
 Workflow:
-1. **Ensure Python 3 is installed**:
+1. **Ensure Python 3.9+ is installed**:
    - Run: `python3 --version` to check if installed
-   - If not found:
-     - macOS: `brew install python3`
-     - Linux (Debian/Ubuntu): `sudo apt-get update && sudo apt-get install -y python3`
-     - Linux (RHEL/CentOS): `sudo yum install -y python3`
-   - Verify python3 is available before proceeding
+   - If not found or version < 3.9:
+     - macOS: `brew install python@3.11` (or latest stable)
+     - Linux (Debian/Ubuntu): `sudo apt-get update && sudo apt-get install -y python3.11` (or latest stable)
+     - Linux (RHEL/CentOS): `sudo yum install -y python3.11` (or latest stable)
+   - Verify python3 version is 3.9 or higher before proceeding
 2. **Ensure pipx is installed**:
    - Run: `pipx --version` to check if installed
    - If not found:
