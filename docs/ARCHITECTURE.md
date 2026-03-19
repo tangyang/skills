@@ -3,35 +3,47 @@
 ## Goal
 
 Use a scalable skill-pack layout for GitHub publishing and OpenClaw consumption:
-- one capability = one skill
-- one shared runner for all capabilities
+- one base tool skill (`meitu-ai`)
+- multiple scenario skills
+- one runner script owned by the base tool skill
 
 ## Why this structure
 
 1. Clear invocation boundary
-- Users can select a capability skill directly without routing ambiguity.
+- Base tool ability and business scenarios are decoupled.
 
 2. Easier extension
-- Add a new capability by adding one new skill folder and one command spec entry.
+- Add a new scenario skill without changing tool internals.
 
 3. Stable maintenance
-- Shared runner keeps validation and response format consistent.
+- All command validation and output normalization stay in one place.
 
 ## Current pattern
 
-- Capability skills live under `skills/meitu-*`.
-- Shared execution logic lives in `skills/_shared/run_command.py`.
-- Every capability skill calls the shared runner with a fixed built-in command.
+- Base tool skill: `skills/meitu-ai/`
+- Runner script: `skills/meitu-ai/scripts/run_command.py`
+- Scenario skills: `skills/meitu-*` and `skills/article-to-cover`
+- Scenario skills call the runner via `../meitu-ai/scripts/run_command.py`
 
-## Add a new capability
+## Add a new built-in command
 
-1. Update `skills/_shared/run_command.py`:
+1. Update `skills/meitu-ai/scripts/run_command.py`:
 - add command spec
 - add optional Chinese command alias
 - add input key aliases if needed
 
-2. Add a new capability skill folder:
-- `skills/meitu-<new-capability>/SKILL.md`
+2. Update `skills/meitu-ai/SKILL.md` command list if needed.
+
+## Add a new scenario skill
+
+1. Create a new folder:
+- `skills/<scenario-name>/SKILL.md`
+
+2. In the scenario SKILL, call:
+
+```bash
+python3 "{baseDir}/../meitu-ai/scripts/run_command.py" --command "<built-in-command>" --input-json '<json object>'
+```
 
 3. Add example and docs:
 - update `examples/`

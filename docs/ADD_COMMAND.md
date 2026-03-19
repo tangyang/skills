@@ -1,20 +1,20 @@
 # ADD_COMMAND
 
-Add a new built-in command and capability skill.
+Add a new built-in command into the base tool skill (`meitu-ai`).
 
 ## Steps
 
-1. Edit `skills/_shared/run_command.py`.
+1. Edit `skills/meitu-ai/scripts/run_command.py`.
 2. Add or update one command entry in `COMMAND_SPECS`.
 3. Define only user input keys:
 - `required_keys`
 - `optional_keys`
 - `array_keys`
-4. Create one new skill folder under `skills/` (for example `skills/meitu-xxx/SKILL.md`) and bind it to the new command.
+4. Update `skills/meitu-ai/SKILL.md` command list.
 5. Validate with a minimal run:
 
 ```bash
-python3 skills/_shared/run_command.py \
+python3 skills/meitu-ai/scripts/run_command.py \
   --command <command_name> \
   --input-json '{...}'
 ```
@@ -23,3 +23,9 @@ python3 skills/_shared/run_command.py \
 
 - Only expose keys users actually need to fill.
 - Do not expose internal routing details in documents.
+
+## Optional: Add a scenario skill
+
+If this command needs business-context packaging, add a scenario skill:
+- `skills/<scenario-name>/SKILL.md`
+- call `../meitu-ai/scripts/run_command.py` from that scenario.

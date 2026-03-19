@@ -1,6 +1,9 @@
 # skills
 
-Capability skills:
+Base tool skill:
+- `meitu-ai`（工具能力 + 安装配置 + 统一执行入口）
+
+Scenario skills:
 - `meitu-video-motion-transfer` (动作迁移)
 - `meitu-image-edit` (图片编辑)
 - `meitu-image-generate` (图片生成)
@@ -11,5 +14,5 @@ Capability skills:
 - `meitu-image-cutout` (抠图)
 - `article-to-cover` (文章转海报/封面设计)
 
-Shared runtime:
-- `_shared/run_command.py`
+Runner script:
+- `meitu-ai/scripts/run_command.py`

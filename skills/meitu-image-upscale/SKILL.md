@@ -14,7 +14,7 @@ Input contract:
 Execution:
 
 ```bash
-python3 "{baseDir}/../_shared/run_command.py" --command "image-upscale" --input-json '<json object>'
+python3 "{baseDir}/../meitu-ai/scripts/run_command.py" --command "image-upscale" --input-json '<json object>'
 ```
 
 Output:

@@ -26,7 +26,7 @@ Fallback:
 ## Verification
 
 ```bash
-python3 skills/_shared/run_command.py \
+python3 skills/meitu-ai/scripts/run_command.py \
   --command image-upscale \
   --input-json '{"image":"https://obs.mtlab.meitu.com/public/resources/aigensource.png"}'
 ```

@@ -3,19 +3,22 @@
 Command-based skill pack for OpenClaw, powered by `meitu-ai`.
 
 This pack provides:
-- one skill per capability (9 skills)
-- a shared runner script: `skills/_shared/run_command.py`
+- one base tool skill: `skills/meitu-ai/`
+- multiple scenario skills (independent, parallel)
 
-Capabilities:
-- `meitu-video-motion-transfer` -> `video-motion-transfer` (动作迁移)
-- `meitu-image-edit` -> `image-edit` (图片编辑)
-- `meitu-image-generate` -> `image-generate` (图片生成)
-- `meitu-image-upscale` -> `image-upscale` (图片超清)
-- `meitu-image-virtual-tryon` -> `image-virtual-tryon` (试衣)
-- `meitu-image-to-video` -> `image-to-video` (图生视频)
-- `meitu-image-face-swap` -> `image-face-swap` (换头像)
-- `meitu-image-cutout` -> `image-cutout` (抠图)
-- `article-to-cover` -> `image-generate` (文章转海报/封面设计)
+Base tool skill:
+- `meitu-ai` (tooling, install, credentials, unified runner)
+
+Scenario skills:
+- `meitu-video-motion-transfer` (动作迁移)
+- `meitu-image-edit` (图片编辑)
+- `meitu-image-generate` (图片生成)
+- `meitu-image-upscale` (图片超清)
+- `meitu-image-virtual-tryon` (试衣)
+- `meitu-image-to-video` (图生视频)
+- `meitu-image-face-swap` (换头像)
+- `meitu-image-cutout` (抠图)
+- `article-to-cover` (文章转海报/封面设计)
 
 ## Quick Start
 
@@ -39,7 +42,7 @@ or place credentials in:
 3. Run a built-in command
 
 ```bash
-python3 skills/_shared/run_command.py \
+python3 skills/meitu-ai/scripts/run_command.py \
   --command image-upscale \
   --input-json '{"image":"https://obs.mtlab.meitu.com/public/resources/aigensource.png"}'
 ```
@@ -52,8 +55,10 @@ meitu-ai-skillpack/
   docs/
   examples/
   skills/
-    _shared/
-      run_command.py
+    meitu-ai/
+      SKILL.md
+      scripts/
+        run_command.py
     meitu-video-motion-transfer/
       SKILL.md
     meitu-image-edit/
@@ -76,6 +81,7 @@ meitu-ai-skillpack/
 ```
 
 See `docs/` for OpenClaw setup, extension strategy, and maintenance rules.
+- Tester quick guide: `docs/TEST_GUIDE_ZH.md`
 
 ## Image command examples
 

@@ -11,7 +11,7 @@ Art-director-level poster design skill. Analyzes text input, anchors style direc
 
 ## Dependencies
 
-- engine: meitu-cli
+- engine: meitu-ai
 - user data: ~/.openclaw/visual/
 
 ## Core Workflow
@@ -174,15 +174,17 @@ Generate JSON following Scenario 2 format in [references/output-formats.md](refe
 
 ---
 
-### Step 4: Generate Image via meitu-cli
+### Step 4: Generate Image via meitu-ai tool skill
 
 1. Extract prompt from Step 3A JSON (`ai_generation_prompts.primary_prompt`) or Step 3B JSON (`prompt`)
 2. Determine dimensions from design spec or user requirements (default: 1080×1350 portrait poster)
 3. Run:
    ```bash
-   meitu image-generate --prompt "{prompt}" --size {width}x{height} --model flux-pro-1.1
+   python3 "{baseDir}/../meitu-ai/scripts/run_command.py" \
+     --command "image-generate" \
+     --input-json '{"prompt":"{prompt}","size":"{width}x{height}"}'
    ```
-4. If generation fails → adjust prompt, retry with `--model flux-dev` as fallback
+4. If generation fails → adjust prompt and retry through the same meitu-ai command runner
 
 ### Step 5: Compliance Check
 
@@ -199,5 +201,5 @@ Generate JSON following Scenario 2 format in [references/output-formats.md](refe
 ## Output
 
 - Structured design specification (markdown + JSON)
-- Generated poster image(s) via meitu-cli
+- Generated poster image(s) via meitu-ai
 - Journal entry (if user opts in)

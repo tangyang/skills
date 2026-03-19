@@ -2,6 +2,7 @@
 
 ## Recommended skills
 
+- `skills/meitu-ai/SKILL.md` (base tool skill, should always be loaded)
 - `skills/meitu-video-motion-transfer/SKILL.md`
 - `skills/meitu-image-edit/SKILL.md`
 - `skills/meitu-image-generate/SKILL.md`
@@ -10,10 +11,13 @@
 - `skills/meitu-image-to-video/SKILL.md`
 - `skills/meitu-image-face-swap/SKILL.md`
 - `skills/meitu-image-cutout/SKILL.md`
+- `skills/article-to-cover/SKILL.md`
 
 ## Trigger pattern
 
-Recommended: invoke the capability skill directly.
+Recommended:
+- load `meitu-ai` as base tool skill
+- invoke scenario skills directly by name
 
 Example prompts:
 
