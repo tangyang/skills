@@ -1,4 +1,0 @@
-Use meitu-ai-effect.
-Execute effect_id=488178 with input:
-{"image_url":"https://obs.mtlab.meitu.com/public/resources/aigensource.png"}
-Return data.result.id and final image URL.

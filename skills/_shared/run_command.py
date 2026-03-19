@@ -8,6 +8,10 @@ import subprocess
 from pathlib import Path
 
 
+def _normalize_lookup_key(value: str) -> str:
+    return str(value or "").strip().lower()
+
+
 COMMAND_SPECS = {
     "video-motion-transfer": {
         "required_keys": ["image_url", "video_url", "prompt"],
@@ -50,6 +54,167 @@ COMMAND_SPECS = {
         "array_keys": [],
     },
 }
+
+COMMAND_ALIASES = {
+    # Chinese trigger names
+    "动作迁移": "video-motion-transfer",
+    "图片编辑": "image-edit",
+    "图片生成": "image-generate",
+    "图片超清": "image-upscale",
+    "试衣": "image-virtual-tryon",
+    "图生视频": "image-to-video",
+    "换头像": "image-face-swap",
+    "抠图": "image-cutout",
+    # Extra short aliases
+    "edit": "image-edit",
+    "generate": "image-generate",
+    "upscale": "image-upscale",
+    "virtual-tryon": "image-virtual-tryon",
+    "face-swap": "image-face-swap",
+    "cutout": "image-cutout",
+    "motion-transfer": "video-motion-transfer",
+}
+
+INPUT_KEY_ALIASES = {
+    "video-motion-transfer": {
+        "image": "image_url",
+        "图片": "image_url",
+        "图片url": "image_url",
+        "图片链接": "image_url",
+        "video": "video_url",
+        "视频": "video_url",
+        "视频url": "video_url",
+        "视频链接": "video_url",
+        "提示词": "prompt",
+        "描述": "prompt",
+    },
+    "image-edit": {
+        "image_url": "image",
+        "image_list": "image",
+        "图片": "image",
+        "图片url": "image",
+        "图片链接": "image",
+        "提示词": "prompt",
+        "描述": "prompt",
+        "尺寸": "size",
+        "分辨率": "size",
+        "格式": "output_format",
+        "输出格式": "output_format",
+        "比例": "ratio",
+        "画幅": "ratio",
+    },
+    "image-generate": {
+        "image_url": "image",
+        "image_list": "image",
+        "参考图": "image",
+        "参考图片": "image",
+        "提示词": "prompt",
+        "描述": "prompt",
+        "尺寸": "size",
+        "分辨率": "size",
+    },
+    "image-upscale": {
+        "image_url": "image",
+        "图片": "image",
+        "图片url": "image",
+        "图片链接": "image",
+        "模型": "model_type",
+    },
+    "image-virtual-tryon": {
+        "clothes_url": "clothes_image_url",
+        "clothes": "clothes_image_url",
+        "衣服图": "clothes_image_url",
+        "衣服图片": "clothes_image_url",
+        "衣服图片url": "clothes_image_url",
+        "person_url": "person_image_url",
+        "person": "person_image_url",
+        "人物图": "person_image_url",
+        "人物图片": "person_image_url",
+        "人像图": "person_image_url",
+    },
+    "image-to-video": {
+        "image_url": "image",
+        "图片": "image",
+        "图片url": "image",
+        "图片链接": "image",
+        "提示词": "prompt",
+        "描述": "prompt",
+        "时长": "video_duration",
+        "比例": "ratio",
+        "画幅": "ratio",
+    },
+    "image-face-swap": {
+        "head_url": "head_image_url",
+        "头像图": "head_image_url",
+        "头图": "head_image_url",
+        "源脸图": "head_image_url",
+        "scene_image_url": "sence_image_url",
+        "目标图": "sence_image_url",
+        "场景图": "sence_image_url",
+        "底图": "sence_image_url",
+        "提示词": "prompt",
+        "描述": "prompt",
+    },
+    "image-cutout": {
+        "image_url": "image",
+        "图片": "image",
+        "图片url": "image",
+        "图片链接": "image",
+        "模型": "model_type",
+    },
+}
+
+COMMAND_ALIAS_LOOKUP = {}
+for _canonical_command in COMMAND_SPECS.keys():
+    _key = _normalize_lookup_key(_canonical_command)
+    if _key:
+        COMMAND_ALIAS_LOOKUP[_key] = _canonical_command
+    _underscore = _normalize_lookup_key(_canonical_command.replace("-", "_"))
+    if _underscore:
+        COMMAND_ALIAS_LOOKUP[_underscore] = _canonical_command
+for _alias, _target in COMMAND_ALIASES.items():
+    _key = _normalize_lookup_key(_alias)
+    if _key:
+        COMMAND_ALIAS_LOOKUP[_key] = _target
+
+
+def _resolve_command_alias(command: str) -> str:
+    key = _normalize_lookup_key(command)
+    resolved = COMMAND_ALIAS_LOOKUP.get(key)
+    if not resolved or resolved not in COMMAND_SPECS:
+        raise RuntimeError(f"unsupported command: {command}")
+    return resolved
+
+
+def _normalize_input_aliases(command: str, user_input: dict) -> dict:
+    spec = COMMAND_SPECS.get(command) or {}
+    required_keys = list(spec.get("required_keys") or [])
+    optional_keys = list(spec.get("optional_keys") or [])
+    known_keys = required_keys + optional_keys
+
+    alias_lookup: dict = {}
+    for key in known_keys:
+        alias_lookup[_normalize_lookup_key(key)] = key
+
+    for alias, canonical in (INPUT_KEY_ALIASES.get(command) or {}).items():
+        if canonical in known_keys:
+            alias_lookup[_normalize_lookup_key(alias)] = canonical
+
+    mapped: dict = {}
+    source: dict = {}
+    for raw_key, value in user_input.items():
+        raw_key_text = str(raw_key)
+        lookup_key = _normalize_lookup_key(raw_key_text)
+        canonical_key = alias_lookup.get(lookup_key, raw_key_text)
+
+        if canonical_key in mapped:
+            prev_source = source.get(canonical_key, canonical_key)
+            raise RuntimeError(f"duplicate input key mapped to {canonical_key}: {prev_source}, {raw_key_text}")
+
+        mapped[canonical_key] = value
+        source[canonical_key] = raw_key_text
+
+    return mapped
 
 
 def _load_openapi_credentials_from_file() -> dict:
@@ -246,9 +411,17 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> int:
     args = build_parser().parse_args()
 
-    command = str(args.command or "").strip()
-    if not command:
+    command_raw = str(args.command or "").strip()
+    if not command_raw:
         print(json.dumps({"ok": False, "error": "command is required"}, ensure_ascii=False))
+        return 2
+
+    resolved_command = command_raw
+
+    try:
+        resolved_command = _resolve_command_alias(command_raw)
+    except Exception as exc:
+        print(json.dumps({"ok": False, "command": command_raw, "error": str(exc)}, ensure_ascii=False))
         return 2
 
     try:
@@ -262,8 +435,9 @@ def main() -> int:
         return 2
 
     try:
-        normalized_input = _validate_input(command, user_input)
-        cmd_args = _build_cli_args(command, normalized_input)
+        user_input = _normalize_input_aliases(resolved_command, user_input)
+        normalized_input = _validate_input(resolved_command, user_input)
+        cmd_args = _build_cli_args(resolved_command, normalized_input)
 
         env = build_env()
         res = _run_meitu(cmd_args, env)
@@ -304,7 +478,7 @@ def main() -> int:
                 json.dumps(
                     {
                         "ok": False,
-                        "command": command,
+                        "command": resolved_command,
                         "error": stderr or "empty cli output",
                         "exit_code": res.returncode,
                     },
@@ -320,7 +494,7 @@ def main() -> int:
                 json.dumps(
                     {
                         "ok": False,
-                        "command": command,
+                        "command": resolved_command,
                         "error": "invalid cli json output",
                         "exit_code": res.returncode,
                         "stdout": stdout,
@@ -337,7 +511,7 @@ def main() -> int:
 
         output = {
             "ok": ok,
-            "command": command,
+            "command": resolved_command,
             "task_id": _extract_task_id(payload),
             "media_urls": _extract_media_urls(payload),
             "result": payload,
@@ -351,7 +525,7 @@ def main() -> int:
         return 0 if ok else 1
 
     except Exception as exc:
-        print(json.dumps({"ok": False, "command": command, "error": str(exc)}, ensure_ascii=False))
+        print(json.dumps({"ok": False, "command": resolved_command, "error": str(exc)}, ensure_ascii=False))
         return 1
 
 

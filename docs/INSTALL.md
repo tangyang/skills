@@ -5,8 +5,11 @@
 Recommended:
 
 ```bash
-pipx install meitu-ai
+pipx install --force meitu-ai
 ```
+
+Required runtime:
+- `meitu-ai >= 0.1.2`
 
 ## Credentials
 
@@ -23,7 +26,7 @@ Fallback:
 ## Verification
 
 ```bash
-python3 skills/meitu-ai-effect/scripts/run_effect.py \
-  --effect-id 488178 \
-  --input-json '{"image_url":"https://obs.mtlab.meitu.com/public/resources/aigensource.png"}'
+python3 skills/_shared/run_command.py \
+  --command image-upscale \
+  --input-json '{"image":"https://obs.mtlab.meitu.com/public/resources/aigensource.png"}'
 ```
