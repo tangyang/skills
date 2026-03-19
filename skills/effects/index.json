@@ -1,0 +1,15 @@
+{
+  "schema_version": "v1",
+  "effects": [
+    {
+      "effect_id": "488176",
+      "file": "488176.json",
+      "status": "active"
+    },
+    {
+      "effect_id": "488178",
+      "file": "488178.json",
+      "status": "active"
+    }
+  ]
+}

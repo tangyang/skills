@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "effect_id": "488178",
+  "task_type": "formula",
+  "rsp_media_type": "url",
+  "media_input": {
+    "input_key": "image_url",
+    "type": "single_url",
+    "required": true
+  },
+  "parameter": {
+    "wrap_mode": "none",
+    "allowed_keys": [],
+    "required_keys": [],
+    "defaults": {}
+  }
+}
