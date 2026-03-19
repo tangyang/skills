@@ -57,7 +57,7 @@ export OPENAPI_SECRET_KEY="你的SK"
 
 ```bash
 cd /path/to/skills
-python3 skills/meitu-ai/scripts/run_command.py \
+python3 meitu-ai/scripts/run_command.py \
   --command image-upscale \
   --input-json '{"image":"https://obs.mtlab.meitu.com/public/resources/aigensource.png"}'
 ```
@@ -70,12 +70,13 @@ python3 skills/meitu-ai/scripts/run_command.py \
 ## 5. 把 Skill 放到龙虾工作区
 
 ```bash
-mkdir -p ~/.openclaw/workspace/skills
-rsync -a /path/to/skills/skills/ ~/.openclaw/workspace/skills/
+mkdir -p ~/.openclaw/skills
+mkdir -p ~/.openclaw/visual/{assets,rules,projects,memory}
+rsync -a /path/to/skills/{meitu-ai,meitu-video-motion-transfer,meitu-image-edit,meitu-image-generate,meitu-image-upscale,meitu-image-virtual-tryon,meitu-image-to-video,meitu-image-face-swap,meitu-image-cutout,article-to-cover} ~/.openclaw/skills/
 ```
 
 说明：
-- 这里同步的是本项目里的 `skills/` 子目录（含 `meitu-ai` 基础 skill 和各场景目录）。
+- 这里同步的是本项目顶层目录中的基础 skill 和场景 skill。
 - 如果龙虾已经在运行，建议重开一个新会话再测。
 
 ## 6. 在龙虾里测试（腾讯文档粘贴友好）

@@ -2,16 +2,18 @@
 
 ## Recommended skills
 
-- `skills/meitu-ai/SKILL.md` (base tool skill, should always be loaded)
-- `skills/meitu-video-motion-transfer/SKILL.md`
-- `skills/meitu-image-edit/SKILL.md`
-- `skills/meitu-image-generate/SKILL.md`
-- `skills/meitu-image-upscale/SKILL.md`
-- `skills/meitu-image-virtual-tryon/SKILL.md`
-- `skills/meitu-image-to-video/SKILL.md`
-- `skills/meitu-image-face-swap/SKILL.md`
-- `skills/meitu-image-cutout/SKILL.md`
-- `skills/article-to-cover/SKILL.md`
+Load the following paths under `~/.openclaw/skills/`:
+
+- `meitu-ai/SKILL.md` (base tool skill, should always be loaded)
+- `meitu-video-motion-transfer/SKILL.md`
+- `meitu-image-edit/SKILL.md`
+- `meitu-image-generate/SKILL.md`
+- `meitu-image-upscale/SKILL.md`
+- `meitu-image-virtual-tryon/SKILL.md`
+- `meitu-image-to-video/SKILL.md`
+- `meitu-image-face-swap/SKILL.md`
+- `meitu-image-cutout/SKILL.md`
+- `article-to-cover/SKILL.md`
 
 ## Trigger pattern
 

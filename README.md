@@ -3,7 +3,7 @@
 Command-based skill pack for OpenClaw, powered by `meitu-ai`.
 
 This pack provides:
-- one base tool skill: `skills/meitu-ai/`
+- one base tool skill: `meitu-ai/`
 - multiple scenario skills (independent, parallel)
 
 Base tool skill:
@@ -42,7 +42,7 @@ or place credentials in:
 3. Run a built-in command
 
 ```bash
-python3 skills/meitu-ai/scripts/run_command.py \
+python3 meitu-ai/scripts/run_command.py \
   --command image-upscale \
   --input-json '{"image":"https://obs.mtlab.meitu.com/public/resources/aigensource.png"}'
 ```
@@ -54,30 +54,34 @@ meitu-ai-skillpack/
   README.md
   docs/
   examples/
-  skills/
-    meitu-ai/
-      SKILL.md
-      scripts/
-        run_command.py
-    meitu-video-motion-transfer/
-      SKILL.md
-    meitu-image-edit/
-      SKILL.md
-    meitu-image-generate/
-      SKILL.md
-    meitu-image-upscale/
-      SKILL.md
-    meitu-image-virtual-tryon/
-      SKILL.md
-    meitu-image-to-video/
-      SKILL.md
-    meitu-image-face-swap/
-      SKILL.md
-    meitu-image-cutout/
-      SKILL.md
-    article-to-cover/
-      SKILL.md
-      references/
+  meitu-ai/
+    SKILL.md
+    scripts/
+      run_command.py
+  meitu-video-motion-transfer/
+    SKILL.md
+  meitu-image-edit/
+    SKILL.md
+  meitu-image-generate/
+    SKILL.md
+  meitu-image-upscale/
+    SKILL.md
+  meitu-image-virtual-tryon/
+    SKILL.md
+  meitu-image-to-video/
+    SKILL.md
+  meitu-image-face-swap/
+    SKILL.md
+  meitu-image-cutout/
+    SKILL.md
+  article-to-cover/
+    SKILL.md
+    references/
+  visual/
+    assets/
+    rules/
+    projects/
+    memory/
 ```
 
 See `docs/` for OpenClaw setup, extension strategy, and maintenance rules.

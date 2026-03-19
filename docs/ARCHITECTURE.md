@@ -20,24 +20,24 @@ Use a scalable skill-pack layout for GitHub publishing and OpenClaw consumption:
 
 ## Current pattern
 
-- Base tool skill: `skills/meitu-ai/`
-- Runner script: `skills/meitu-ai/scripts/run_command.py`
-- Scenario skills: `skills/meitu-*` and `skills/article-to-cover`
+- Base tool skill: `meitu-ai/`
+- Runner script: `meitu-ai/scripts/run_command.py`
+- Scenario skills: `meitu-*` and `article-to-cover`
 - Scenario skills call the runner via `../meitu-ai/scripts/run_command.py`
 
 ## Add a new built-in command
 
-1. Update `skills/meitu-ai/scripts/run_command.py`:
+1. Update `meitu-ai/scripts/run_command.py`:
 - add command spec
 - add optional Chinese command alias
 - add input key aliases if needed
 
-2. Update `skills/meitu-ai/SKILL.md` command list if needed.
+2. Update `meitu-ai/SKILL.md` command list if needed.
 
 ## Add a new scenario skill
 
 1. Create a new folder:
-- `skills/<scenario-name>/SKILL.md`
+- `<scenario-name>/SKILL.md`
 
 2. In the scenario SKILL, call:
 
